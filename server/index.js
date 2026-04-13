@@ -57,21 +57,19 @@ Instructions:
 
 Return ONLY updated HTML.
 `;
+const aiResponse = await openai.responses.create({
+  model: "gpt-4o-mini",
+  input: prompt,
+});
 
-    const aiResponse = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [{ role: "user", content: prompt }],
-    });
+let modifiedHTML =
+  aiResponse.output?.[0]?.content?.[0]?.text || "";
 
-    let modifiedHTML = aiResponse.choices[0].message.content;
+if (!modifiedHTML || modifiedHTML.length < 20) {
+  modifiedHTML = `<h1>${ad}</h1><button>Shop Now</button>`;
+}
 
-    
-    if (!modifiedHTML || modifiedHTML.length < 20) {
-      modifiedHTML = `<h1>${ad}</h1><button>Shop Now</button>`;
-    }
-
-    
-    res.send(modifiedHTML);
+res.send(modifiedHTML);
 
   } catch (error) {
     console.error(error);

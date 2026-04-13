@@ -16,7 +16,7 @@ function App() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/generate", {
+      const res = await fetch("https://ai-landpage-j1q6.onrender.com/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
